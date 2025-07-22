@@ -17,13 +17,13 @@ steps:
   args:
     - build
     - -t
-    - us-central1-docker.pkg.dev/gcp-poc/argocd-poc/java-app/image:$COMMIT_SHA
+    - us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app/image:$COMMIT_SHA
     - .
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
     - push
-    - us-central1-docker.pkg.dev/gcp-poc/argocd-poc/java-app/image:$COMMIT_SHA
+    - us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app/image:$COMMIT_SHA
 
 - name: 'gcr.io/cloud-builders/kubectl'
   args:
@@ -40,4 +40,4 @@ steps:
     - gs://argocd-poc-manifests/app.yaml
 
 images:
-  - us-central1-docker.pkg.dev/gcp-poc/argocd-poc/java-app/image:$COMMIT_SHA
+  - us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app/image:$COMMIT_SHA
