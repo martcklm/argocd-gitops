@@ -13,7 +13,7 @@ spec:
         app: java-app
     spec:
       containers:
-        - name: java-app
-          image: image: us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app/image:IMAGE_TAG
-          ports:
-            - containerPort: 8080
+      - name: java-app
+        image: us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app/image:IMAGE_TAG
+        ports:
+        - containerPort: 8080
