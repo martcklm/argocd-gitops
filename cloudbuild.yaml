@@ -24,3 +24,5 @@ steps:
 
 images:
 - 'us-central1-docker.pkg.dev/gcp-poc/argocd-poc/java-app/image:$COMMIT_SHA'
+options:
+  logging: 'CLOUD_LOGGING_ONLY
