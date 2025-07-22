@@ -1,1 +1,3 @@
-// placeholder
+resources:
+  - deployment.yaml
+  - service.yaml
