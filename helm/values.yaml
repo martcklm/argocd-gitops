@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app
+  tag: IMAGE_TAG
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080

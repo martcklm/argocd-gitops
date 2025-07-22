@@ -1,8 +1,4 @@
-FROM maven:3.8.5-openjdk-17 AS builder
-WORKDIR /app
-COPY . .
-RUN mvn clean package
-
 FROM openjdk:17-jdk-slim
-COPY --from=builder /app/target/*.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+WORKDIR /app
+COPY target/java-app-1.0-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
