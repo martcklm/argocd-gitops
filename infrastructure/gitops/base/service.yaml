@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-java-app
+  name: simple-java-app
 spec:
   type: ClusterIP
   selector:
-    app: my-java-app
+    app: simple-java-app
   ports:
   - port: 80
     targetPort: 8080
