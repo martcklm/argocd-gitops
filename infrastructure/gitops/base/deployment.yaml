@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-java-app
+  name: java-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: simple-java-app
+      app: java-app
   template:
     metadata:
       labels:
-        app: simple-java-app
+        app: java-app
     spec:
       containers:
-      - name: simple-java-app
-        image: us-central1-docker.pkg.dev/PROJECT_ID/gcp-poc/java-app:latest
+      - name: java-app
+        image: us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest
         ports:
         - containerPort: 8080

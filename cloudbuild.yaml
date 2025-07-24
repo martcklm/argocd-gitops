@@ -4,14 +4,20 @@ steps:
 - name: 'maven:3.8.1-jdk-11'
   entrypoint: mvn
   args: ['clean', 'package']
-  dir: 'java-webapp'
+  dir: 'java-app'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA', '.']
-  dir: 'java-webapp'
+  args:
+    [
+      'build',
+      '-t',
+      'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest',
+      '.'
+    ]
+  dir: 'java-app'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA']
+  args: ['push', 'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest']
 
 images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA'
+- 'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest'

@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: simple-java-app-dev
+  name: java-app-dev
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-org/gitops-repo.git'
+    repoURL: 'https://github.com/<YOUR_ORG>/<YOUR_REPO>.git'
     targetRevision: master
     path: infrastructure/gitops/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: simple-java-app-dev
+    namespace: java-app-dev
   syncPolicy:
     automated:
       prune: true

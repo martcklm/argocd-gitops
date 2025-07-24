@@ -1,6 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-java-app
+  name: java-app
 spec:
-  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: java-app
+        image: us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest
