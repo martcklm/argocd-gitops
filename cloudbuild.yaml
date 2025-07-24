@@ -1,14 +1,18 @@
 logsBucket: gs://argo-gitops-poc-logs
 
 steps:
-- name: 'gcr.io/cloud-builders/mvn'
-  args: ['package']
+# Step 1: Build the WAR using Maven in app/java-webapp
+- name: 'maven:3.8.1-jdk-11'
+  entrypoint: 'mvn'
+  args: ['clean', 'package']
   dir: 'app/java-webapp'
 
+# Step 2: Build Docker image from inside app/java-webapp
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA', '.']
   dir: 'app/java-webapp'
 
+# Step 3: Push Docker image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA']
 
