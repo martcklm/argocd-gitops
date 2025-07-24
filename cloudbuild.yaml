@@ -1,47 +1,12 @@
 steps:
-# 1. Build Java app
-- name: 'maven:3.8.5-openjdk-17'
-  entrypoint: 'mvn'
-  args: ['clean', 'package']
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['package']
+  dir: 'app/java-webapp'
 
-# 2. Update image tag in Helm values.yaml
-- name: 'ubuntu'
-  entrypoint: 'bash'
-  args:
-    - -c
-    - |
-      sed -i "s|IMAGE_TAG|$COMMIT_SHA|g" helm/values.yaml
-
-# 3. Build Docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args:
-    ['build', '-t', 'us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA', '.']
 
-# 4. Push Docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args:
-    ['push', 'us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app:$COMMIT_SHA']
-
-# 5. Package Helm chart
-- name: 'alpine/helm:3.12.0'
-  entrypoint: 'sh'
-  args:
-    - -c
-    - |
-      cd helm
-      helm package . --destination ../
-
-# 6. Push Helm chart to Artifact Registry (OCI)
-- name: 'alpine/helm:3.12.0'
-  entrypoint: 'sh'
-  args:
-    - -c
-    - |
-      helm registry login -u _json_key --password "$(cat /builder/service-account.json)" us-central1-docker.pkg.dev
-      helm push java-app-0.1.0.tgz oci://us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc
-
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA']
 images:
-- 'us-central1-docker.pkg.dev/gcp-poc-466408/argocd-poc/java-app:$COMMIT_SHA'
-
-options:
-  logging: CLOUD_LOGGING_ONLY
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA'
