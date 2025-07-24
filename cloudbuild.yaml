@@ -1,3 +1,8 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+logsBucket: gs://argo-gitops-poc-logs
+
 steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['package']
@@ -8,5 +13,6 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA']
+
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/gcp-poc/java-app:$COMMIT_SHA'
