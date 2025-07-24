@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: java-app-prod
-  namespace: argocd
+  namespace: core
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/<YOUR_ORG>/<YOUR_REPO>.git'
+    repoURL: 'https://github.com/martcklm/argocd-gitops.git'
     targetRevision: master
     path: infrastructure/gitops/overlays/prod
   destination:
