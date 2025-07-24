@@ -3,4 +3,4 @@ kind: Deployment
 metadata:
   name: java-app
 spec:
-  replicas: 1
+  replicas: 10
