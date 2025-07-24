@@ -1,23 +1,30 @@
 logsBucket: gs://argo-gitops-poc-logs
 
 steps:
+# Step 1: Build Java app (Maven)
 - name: 'maven:3.8.1-jdk-11'
   entrypoint: mvn
   args: ['clean', 'package']
   dir: 'java-app'
 
+# Step 2: Build Docker image with unique tag from BUILD_ID
 - name: 'gcr.io/cloud-builders/docker'
   args:
     [
       'build',
       '-t',
-      'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest',
+      'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:$BUILD_ID',
       '.'
     ]
   dir: 'java-app'
 
+# Step 3: Push image to Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest']
+  args:
+    [
+      'push',
+      'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:$BUILD_ID'
+    ]
 
 images:
-- 'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:latest'
+- 'us-central1-docker.pkg.dev/gcp-poc-466408/gcp-poc/java-app:$BUILD_ID'
